@@ -3,7 +3,6 @@ import {
   Button,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   Alert,
   Image,
@@ -11,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
-
+import {TextInput} from 'react-native-paper';
 const ForgetPassword = ({navigation}) => {
   const [ForgetPassword, setForgetPassword] = useState({
     password: '',
@@ -36,7 +35,7 @@ const ForgetPassword = ({navigation}) => {
             style={styles.input}
             autoCapitalize="none"
             label="Password"
-            placeholder="Password"
+            theme={{colors: {primary: '#9B9C9F'}}}
             onChangeText={e => handleOnChangeText(e)}
           />
         </View>
@@ -47,11 +46,12 @@ const ForgetPassword = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Launcher')}>
-          <Text style={styles.home}>Launcher</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Text style={styles.home}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+          <Text style={styles.home}>Edit</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -83,20 +83,21 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 65,
+    height: 46,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
     borderRadius: 10,
 
     marginVertical: 15,
-    padding: 15,
+    padding: 10,
   },
   button: {
     width: '90%',
     height: 60,
     backgroundColor: '#DBBE80',
     marginBottom: 55,
+    borderRadius: 10,
     left: 20,
   },
   submit: {
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     left: 100,
     margin: 15,
+    borderRadius: 10,
   },
 });
 

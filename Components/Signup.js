@@ -2,24 +2,24 @@ import {
   View,
   Button,
   Text,
-  TextInput,
   StyleSheet,
   BackHandler,
   TouchableOpacity,
   Image,
   Keyboard,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import google from '../Assets/google.png';
 import facebook from '../Assets/Face.png';
 import apple from '../Assets/apple.png';
 import {register, getverificationlink} from '../Utils/apiconfig';
 import qs from 'qs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import dynamicLinks from '@react-native-firebase/dynamic-links';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLoggedIn, setToken} from '../store/action/auth/action';
+import {TextInput} from 'react-native-paper';
+
 const isValidField = obj => {
   return Object.values(obj).every(value => value.trim());
 };
@@ -37,6 +37,8 @@ const isValidEmail = value => {
 };
 
 const Signup = ({navigation}) => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({
     fullName: '',
     email: '',
@@ -67,7 +69,7 @@ const Signup = ({navigation}) => {
 
   const submitForm = async () => {
     if (isValidForm()) {
-      Keyboard.dismiss();
+      // Keyboard.dismiss();
       // const link = await generateLink(form.email);
       setloading(true);
       let data = qs.stringify({
@@ -79,27 +81,27 @@ const Signup = ({navigation}) => {
         FullName: form.fullName,
         User_IsActive: 1,
       });
-      console.log(data);
+      console.log('register data', data);
       await register(data)
         .then(async res => {
           console.log('res: ', JSON.stringify(res));
           console.log('res:123', res.access_token);
           setloading(false);
           if (res.access_token) {
-            await AsyncStorage.setItem('token', res.access_token);
+            dispatch(setToken(res.access_token));
+            dispatch(setLoggedIn());
           }
         })
         .catch(error => {
           if (error.response) {
             setloading(false);
-            console.log(error.response);
-            console.log('responce_error', error.response.data.error);
+            console.log(error);
             if (error.response.data.error == '-99') {
               alert('Email Already Exist.');
             }
           } else if (error.request) {
             setloading(false);
-            console.log('request error', error.request);
+            console.log('request error', error);
           } else if (error) {
             alert('Server Error');
             setloading(false);
@@ -114,19 +116,11 @@ const Signup = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
       <View>
-        <Text>
-          {error ? (
-            <Text style={{color: 'red', fontSize: 15, textAlign: 'center'}}>
-              {error}
-            </Text>
-          ) : null}
-        </Text>
-
         <View style={styles.heading}>
-          <Text style={styles.text}>Sign In</Text>
+          <Text style={styles.text}>Sign Up</Text>
         </View>
         <View style={styles.header}>
-          <Text style={styles.text2}>Please sign in to enter in a app</Text>
+          <Text style={styles.text2}>Please sign up to enter in a app</Text>
         </View>
         <View style={styles.textinput}>
           <TextInput
@@ -134,16 +128,16 @@ const Signup = ({navigation}) => {
             onChangeText={value => handleOnChangeText(value, 'fullName')}
             style={styles.input}
             autoCapitalize="none"
-            label="UserName"
-            placeholder=" Full name"
+            label="Full name"
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
           <TextInput
             value={email}
             onChangeText={value => handleOnChangeText(value, 'email')}
             style={styles.input}
             autoCapitalize="none"
-            label="Email"
-            placeholder="Email address"
+            label="Email address*"
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
           <TextInput
             value={password}
@@ -151,8 +145,8 @@ const Signup = ({navigation}) => {
             style={styles.input}
             autoCapitalize="none"
             secureTextEntry={true}
-            label="Password"
-            placeholder="Password*"
+            label="Password*"
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
           <TextInput
             value={confirmPassword}
@@ -160,10 +154,12 @@ const Signup = ({navigation}) => {
             style={styles.input}
             autoCapitalize="none"
             secureTextEntry={true}
-            label="ConfirmPassword"
-            placeholder="Confirm Password*"
+            label="Confirm Password*"
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
         </View>
+        <Text style={styles.error}>{error ? <Text>{error}</Text> : null}</Text>
+
         <View style={styles.button}>
           <TouchableOpacity>
             <Text style={styles.submit} onPress={submitForm}>
@@ -172,8 +168,8 @@ const Signup = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={styles.or}>
+        <View style={styles.or}>
+          <Text>
             ----------------------------------- OR
             ------------------------------------
           </Text>
@@ -210,7 +206,7 @@ export default Signup;
 
 const styles = StyleSheet.create({
   heading: {
-    marginTop: 5,
+    marginTop: 12,
     marginLeft: 20,
     width: '90%',
     height: 43,
@@ -244,23 +240,24 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   input: {
-    height: 65,
+    height: 45,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
     borderRadius: 10,
-
+    marginBottom: 0,
     marginVertical: 5,
-    padding: 15,
+    padding: 10,
   },
 
   button: {
+    // marginTop: 0,
     width: '90%',
     height: 60,
     borderRadius: 10,
     backgroundColor: '#DBBE80',
-    marginBottom: 25,
-    left: 20,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
   submit: {
     textAlign: 'center',
@@ -272,10 +269,9 @@ const styles = StyleSheet.create({
   },
   or: {
     width: '90%',
-    marginLeft: 20,
+    marginLeft: 30,
     textAlign: 'center',
     fontSize: 16,
-
     fontWeight: '400',
     fontFamily: 'Open Sans',
     color: '#9B9C9F',
@@ -284,48 +280,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
-    marginTop: 20,
+    marginBottom: 20,
+    marginTop: 13,
     marginLeft: 18,
-
     padding: 21,
     width: '90%',
     height: 66,
   },
 
   facebook: {
-    top: 15,
-    left: 15,
     width: 28,
     height: 28,
   },
   google: {
-    top: 12,
-    left: 12,
     width: 34,
     height: 34,
   },
   app: {
-    top: 14,
-    left: 18,
     width: 23,
     height: 27,
   },
   circle: {
     width: 60,
     height: 60,
-
     backgroundColor: '#EFECEC',
     borderRadius: 40,
     elevation: 10,
     left: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   containerFooter: {
     flexDirection: 'row',
-    marginLeft: 20,
     justifyContent: 'center',
     fontSize: 16,
     width: '90%',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   footer: {
     fontSize: 16,
@@ -341,5 +332,14 @@ const styles = StyleSheet.create({
     color: '#98A6AE',
     height: 22,
     color: '#DBBE80',
+  },
+  error: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: '#DBBE80',
+
+    fontSize: 15,
+    width: '90%',
+    marginLeft: 20,
   },
 });

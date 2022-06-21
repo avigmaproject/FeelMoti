@@ -1,8 +1,5 @@
 import axios from 'axios';
 import {API} from './baseurl';
-import {useDispatch, useSelector} from 'react-redux';
-
-// Create axios client, pre-configured with baseURL
 
 const axiosTiming = instance => {
   instance.interceptors.request.use(request => {
@@ -21,19 +18,23 @@ const axiosTiming = instance => {
 };
 axiosTiming(axios);
 
-export const register = async data => {
+export const register = async (data) => {
   return axios(API.REGISTRATION_API, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json"
     },
-    data,
+    data
   })
-    .then(response => response.data)
-    .catch(error => {
-      throw error;
-    });
-};
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      console.log("errorerror", error)
+      throw error
+    })
+}
 
 export const login = async data => {
   return axios(API.LOGIN_API, {

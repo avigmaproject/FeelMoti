@@ -3,13 +3,13 @@ import {
   Button,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   Alert,
   Image,
   Keyboard,
   ScrollView,
 } from 'react-native';
+import {TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,9 +17,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import google from '../Assets/google.png';
 import facebook from '../Assets/Face.png';
 import apple from '../Assets/apple.png';
-import Elevations from 'react-native-elevation';
+import {setLoggedIn, setToken} from '../store/action/auth/action';
 import {login} from '../Utils/apiconfig';
 import qs from 'qs';
+import {useDispatch, useSelector} from 'react-redux';
 
 const isValidField = obj => {
   return Object.values(obj).every(value => value.trim());
@@ -38,6 +39,8 @@ const isValidEmail = value => {
 };
 
 const Signin = ({navigation}) => {
+  const dispatch = useDispatch();
+
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
@@ -55,14 +58,14 @@ const Signin = ({navigation}) => {
       return updateError('Required all fields!', setError);
     if (!isValidEmail(email)) return updateError('Invalid email!', setError);
     if (!password.trim() || password.length < 8)
-      return updateError('Password is less then 8 characters!', setError);
+      return updateError('Password must be atleast 8 chracter long!', setError);
     return true;
   };
 
   const submitForm = async value => {
     console.log('first', userInfo);
     if (isValidForm()) {
-      Keyboard.dismiss();
+      // Keyboard.dismiss();
       setloading(true);
       let data = qs.stringify({
         grant_type: 'password',
@@ -84,9 +87,7 @@ const Signin = ({navigation}) => {
           if (error.response) {
             console.log('error.response', error.response);
             console.log('responce_error', error.response.data.error);
-            if (error.response.data.error == '-90') {
-              alert('EmailID / Mobile Number is Not Verified.');
-            }
+
             if (error.response.data.error == '0') {
               alert('The Email or password is incorrect.');
             }
@@ -99,20 +100,18 @@ const Signin = ({navigation}) => {
           }
         });
       console.log('info', userInfo);
-    } else {
-      console.log('im in else ... import kiya h');
     }
   };
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
       <View>
-        <Text>
+        {/* <Text>
           {error ? (
-            <Text style={{color: 'red', fontSize: 15, textAlign: 'center'}}>
+            <Text style={{color: '#DBBE80', fontSize: 15, textAlign: 'center'}}>
               {error}
             </Text>
           ) : null}
-        </Text>
+        </Text> */}
 
         <View style={styles.heading}>
           <Text style={styles.text}>Sign In</Text>
@@ -126,9 +125,9 @@ const Signin = ({navigation}) => {
             value={email}
             style={styles.email}
             autoCapitalize="none"
-            label="Email address"
-            placeholder="Email address"
+            label="Email address*"
             onChangeText={value => handleOnChangeText(value, 'email')}
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
 
           <TextInput
@@ -138,8 +137,8 @@ const Signin = ({navigation}) => {
             autoCapitalize="none"
             secureTextEntry={true}
             label="Password*"
-            placeholder="Password*"
             onChangeText={value => handleOnChangeText(value, 'password')}
+            theme={{colors: {primary: '#9B9C9F'}}}
           />
         </View>
         <View style={styles.password}>
@@ -154,6 +153,8 @@ const Signin = ({navigation}) => {
             <Text style={styles.reset1}>Reset password?</Text>
           </TouchableOpacity>
         </View>
+        <Text style={styles.error}>{error ? <Text>{error}</Text> : null}</Text>
+
         <View style={styles.button}>
           <TouchableOpacity>
             <Text style={styles.submit} onPress={submitForm}>
@@ -162,8 +163,8 @@ const Signin = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={styles.or}>
+        <View style={styles.or}>
+          <Text>
             ----------------------------------- OR
             ------------------------------------
           </Text>
@@ -198,7 +199,7 @@ const Signin = ({navigation}) => {
 
 const styles = StyleSheet.create({
   heading: {
-    marginTop: 10,
+    marginTop: 25,
     marginLeft: 20,
     width: '90%',
     height: 43,
@@ -232,22 +233,22 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   email: {
-    height: 65,
+    height: 47,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
     borderRadius: 10,
-
+    // fontSize: 6,
     marginVertical: 20,
-    padding: 15,
+    padding: 10,
   },
   pas: {
-    height: 65,
+    height: 47,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
   },
   password: {
     width: '90%',
@@ -278,11 +279,12 @@ const styles = StyleSheet.create({
     color: '#9B9C9F',
   },
   button: {
+    marginTop: 3,
     width: '90%',
     height: 60,
     borderRadius: 10,
     backgroundColor: '#DBBE80',
-    marginBottom: 55,
+    marginBottom: 40,
     left: 20,
   },
   submit: {
@@ -295,7 +297,7 @@ const styles = StyleSheet.create({
   },
   or: {
     width: '90%',
-    marginLeft: 20,
+    marginLeft: 30,
     textAlign: 'center',
     fontSize: 16,
 
@@ -307,30 +309,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
-    marginTop: 40,
-    marginLeft: 18,
-
+    marginBottom: 20,
+    marginTop: 23,
+    alignSelf: 'center',
     padding: 21,
     width: '90%',
     height: 66,
   },
 
   facebook: {
-    top: 15,
-    left: 15,
     width: 28,
     height: 28,
   },
   google: {
-    top: 12,
-    left: 12,
     width: 34,
     height: 34,
   },
   app: {
-    top: 14,
-    left: 18,
     width: 23,
     height: 27,
   },
@@ -342,13 +337,15 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     elevation: 10,
     left: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   containerFooter: {
     flexDirection: 'row',
-    marginLeft: 20,
     justifyContent: 'center',
     fontSize: 16,
     width: '90%',
+    alignSelf: 'center',
   },
   footer: {
     fontSize: 16,
@@ -365,6 +362,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Open Sans',
     color: '#DBBE80',
     height: 22,
+  },
+  error: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: '#DBBE80',
+
+    fontSize: 15,
+    width: '90%',
+    marginLeft: 20,
   },
 });
 

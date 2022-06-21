@@ -10,14 +10,17 @@ import {
   Image,
 } from 'react-native';
 import home from '../Assets/home.png';
+import * as Animatable from 'react-native-animatable';
+
 function Launcher({navigation}) {
   return (
     <View style={styles.container}>
+   <Animatable.View animation={"zoomInDown"}>
       <TouchableOpacity
-        style={styles.main}
         onPress={() => navigation.navigate('Signin')}>
         <Image source={home} />
       </TouchableOpacity>
+</Animatable.View>
     </View>
   );
 }
@@ -26,13 +29,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems:"center",
     backgroundColor: '#DBBE80',
   },
-  main: {
-    width: '100%',
-    height: 92,
-    bottom: 50,
-    left: 40,
-  },
+  
 });
 export default Launcher;

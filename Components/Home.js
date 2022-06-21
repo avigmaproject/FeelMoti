@@ -9,6 +9,8 @@ import {
   Image,
   Keyboard,
   ScrollView,
+  FlatList,
+  SafeAreaView,
 } from 'react-native';
 import moti from '../Assets/moti.png';
 import bell from '../Assets/bell.png';
@@ -19,56 +21,158 @@ import comment from '../Assets/comment.png';
 import save from '../Assets/save.png';
 import body from '../Assets/body.jpeg';
 import React from 'react';
+import Icon from 'react-native-vector-icons/Entypo';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Tabs from '../Navigation/Tabs';
+Icon.loadFont();
+// import {NavigationContainer} from '@react-navigation/native';
+const DATA = [
+  {
+    image: require('../Assets/body.jpeg'),
+
+    name: 'Ronald Richards',
+    state: 'United States',
+
+    likeCount: '22k',
+
+    commentCount: '543',
+  },
+  {
+    image: require('../Assets/body.jpeg'),
+
+    name: 'Ronald Richards',
+    state: 'United States',
+
+    likeCount: '22k',
+
+    commentCount: '543',
+  },
+];
 
 const Home = () => {
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
-      <View>
-        <View style={styles.header}>
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Image source={moti} style={styles.moti} />
+        </TouchableOpacity>
+        <View style={styles.header1}>
           <TouchableOpacity>
-            <Image source={moti} style={styles.moti} />
+            <Image source={bell} style={styles.bell} />
           </TouchableOpacity>
-          <View style={styles.header1}>
+          <View>
             <TouchableOpacity>
-              <Image source={bell} style={styles.bell} />
+              <Image source={profile} style={styles.profile} />
             </TouchableOpacity>
-            <View>
-              <TouchableOpacity>
-                <Image source={profile} style={styles.profile} />
-              </TouchableOpacity>
-            </View>
           </View>
-        </View>
-        <View style={styles.bar}>
-          <View style={styles.bar1}>
-            <TouchableOpacity>
-              <Image source={user} style={styles.user} />
-            </TouchableOpacity>
-            <View style={styles.text}>
-              <TouchableOpacity>
-                <Text style={styles.text1}>Ronald Richards</Text>
-
-                <Text style={styles.text2}>United States</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={styles.dot}>
-            <Text>;;;</Text>
-          </View>
-        </View>
-        <View style={styles.image}>
-          <TouchableOpacity>
-            <Image source={body} style={styles.image1} />
-          </TouchableOpacity>
         </View>
       </View>
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => (
+          <View>
+            <View style={styles.bar}>
+              <View style={styles.bar1}>
+                <TouchableOpacity>
+                  <Image source={user} style={styles.user} />
+                </TouchableOpacity>
+                <View style={styles.text}>
+                  <TouchableOpacity>
+                    <Text style={styles.text1}>Ronald Richards</Text>
+
+                    <Text style={styles.text2}>United States</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.dot}>
+                <TouchableOpacity>
+                  {/* <Image source={like} style={styles.like} /> */}
+                  <Icon
+                    name={'dots-three-vertical'}
+                    size={24}
+                    color="#BDBEC1"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.image}>
+              <TouchableOpacity>
+                <Image
+                  resizeMode="stretch"
+                  source={body}
+                  style={styles.image1}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.content1}>
+                loreum ipsum hasd been the industry many stndard dummy text ever
+                since the 1500
+              </Text>
+              <View style={styles.icon}>
+                <View style={styles.icontext}>
+                  <TouchableOpacity>
+                    {/* <Image source={like} style={styles.like} /> */}
+
+                    <Entypo
+                      name={'heart'}
+                      size={24}
+                      color="red"
+                      style={styles.like}
+                    />
+                  </TouchableOpacity>
+
+                  <View>
+                    <Text style={styles.liketext}>22k</Text>
+                  </View>
+                </View>
+                <View style={styles.icontext}>
+                  <TouchableOpacity>
+                    <Feather
+                      name={'message-circle'}
+                      size={24}
+                      color="#807C7D"
+                      style={styles.comment}
+                    />
+                  </TouchableOpacity>
+                  <View>
+                    <Text style={styles.commenttext}>543</Text>
+                  </View>
+                </View>
+                <View style={styles.icontext}>
+                  <TouchableOpacity>
+                    <AntDesign
+                      name={'sharealt'}
+                      size={24}
+                      color="#898788"
+                      style={styles.share}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.icontext}>
+                  <TouchableOpacity>
+                    <FontAwesome
+                      name={'bookmark'}
+                      size={24}
+                      color="#898788"
+                      style={styles.save}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+      />
     </ScrollView>
   );
 };
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'red',
     marginLeft: 20,
     width: '90%',
     marginTop: 20,
@@ -82,17 +186,14 @@ const styles = StyleSheet.create({
   moti: {
     width: 90,
     height: 45,
-    backgroundColor: 'white',
   },
   bell: {
     margin: 10,
     width: 20,
     height: 20,
-    backgroundColor: 'blue',
   },
   profile: {
     marginHorizontal: 10,
-    backgroundColor: 'yellow',
 
     width: 40,
     height: 40,
@@ -101,7 +202,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 20,
     marginLeft: 20,
-    backgroundColor: 'red',
+
     width: '90%',
     height: 50,
     flexDirection: 'row',
@@ -112,12 +213,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   user: {
-    backgroundColor: 'blue',
     height: 44,
   },
   text: {
     marginLeft: 10,
-    backgroundColor: 'green',
   },
   text1: {
     fontSize: 14,
@@ -138,12 +237,66 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     backgroundColor: 'green',
   },
-  image1: {
-    resizeMode: 'stretch',
-  },
+  image1: {height: 200, width: '100%'},
   dot: {
-    backgroundColor: 'pink',
+    marginRight: 20,
     justifyContent: 'flex-end',
+  },
+  content: {
+    width: '90%',
+    marginLeft: 20,
+    height: 109,
+    elevation: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  content1: {
+    margin: 10,
+    fontFamily: 'Open Sans',
+    fontWeight: '400',
+    fontSize: 14,
+    color: '#9B9C9F',
+    lineHeight: 22,
+  },
+  like: {
+    marginLeft: 20,
+    height: 25,
+  },
+  liketext: {
+    marginLeft: 10,
+    fontFamily: 'Open Sans',
+    fontWeight: '400',
+    fontSize: 14,
+    color: '#231F20',
+  },
+  icon: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  comment: {
+    // backgroundColor: 'purple',
+    height: 22,
+    width: 25,
+    // width: '150%',
+  },
+  icontext: {
+    flexDirection: 'row',
+  },
+  save: {
+    // backgroundColor: 'purple',
+    marginRight: 20,
+    height: 22,
+    width: 20,
+  },
+  commenttext: {
+    marginLeft: 10,
+    fontFamily: 'Open Sans',
+    fontWeight: '400',
+    fontSize: 14,
+    color: '#231F20',
+  },
+  share: {
+    marginRight: 50,
+    // backgroundColor: 'purple',
   },
 });
 

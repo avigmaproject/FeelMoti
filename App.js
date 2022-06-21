@@ -1,65 +1,31 @@
 import * as React from 'react';
 import {View, Text, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Launcher from './Components/Launcher';
-import Signin from './Components/Signin';
-import Signup from './Components/Signup';
-import ForgetPassword from './Components/ForgetPassword';
-import ResetPassword from './Components/ResetPassword';
+import AuthStack from "./Navigation/AuthStack"
+import Main from "./Navigation/Main"
+import { Provider, useSelector } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import store, { persistor } from "./store";
 
-import Home from './Components/Home';
-// import ForgotPassword from 'Signin';
 
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  );
+};
 function App() {
-  const Stack = createNativeStackNavigator();
-
+  const user = useSelector((state) => state.authReducer.loggedin);
+  console.log(user)
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName="Launcher">
-        <Stack.Screen
-          name="Signin"
-          component={Signin}
-          options={{
-            title: 'Sign In',
-          }}
-        />
-        <Stack.Screen
-          name="Signup"
-          component={Signup}
-          options={{
-            title: 'Sign Up',
-          }}
-        />
-        <Stack.Screen
-          name="ForgetPassword"
-          component={ForgetPassword}
-          options={{
-            title: 'Forget Password',
-          }}
-        />
-        <Stack.Screen
-          name="ResetPassword"
-          component={ResetPassword}
-          options={{
-            title: 'Reset Password',
-          }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{
-            title: 'Home',
-          }}
-        />
-        <Stack.Screen name="Launcher" component={Launcher} />
-      </Stack.Navigator>
+        {!user ? <AuthStack/> : <Main/>}
     </NavigationContainer>
   );
 }
 
-export default App;
+
+export default AppWrapper;
