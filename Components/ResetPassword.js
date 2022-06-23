@@ -30,7 +30,7 @@ const ResetPassword = () => {
     <ScrollView contentContainerStyle={{flex: 1}}>
       <View>
         <View style={styles.heading}>
-          <Text style={styles.text}>ResetPassword</Text>
+          <Text style={styles.text}>Reset Password</Text>
         </View>
         <View style={styles.textinput}>
           <TextInput

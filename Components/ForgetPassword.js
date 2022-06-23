@@ -28,13 +28,13 @@ const ForgetPassword = ({navigation}) => {
     <ScrollView contentContainerStyle={{flex: 1}}>
       <View>
         <View style={styles.heading}>
-          <Text style={styles.text}>ForgetPassword</Text>
+          <Text style={styles.text}>Forgot Password</Text>
         </View>
         <View style={styles.textinput}>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
-            label="Password"
+            label="Enter Email Address"
             theme={{colors: {primary: '#9B9C9F'}}}
             onChangeText={e => handleOnChangeText(e)}
           />
@@ -47,11 +47,14 @@ const ForgetPassword = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.home}>Home</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
           <Text style={styles.home}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Wallet')}>
+          <Text style={styles.home}>Wallet</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
+          <Text style={styles.home}>Seting</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

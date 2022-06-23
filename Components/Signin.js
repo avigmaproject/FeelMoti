@@ -103,7 +103,9 @@ const Signin = ({navigation}) => {
     }
   };
   return (
-    <ScrollView contentContainerStyle={{flex: 1}}>
+    <ScrollView
+      contentContainerStyle={{flex: 1}}
+      style={{backgroundColor: '#FFFFFF'}}>
       <View>
         {/* <Text>
           {error ? (
@@ -127,7 +129,7 @@ const Signin = ({navigation}) => {
             autoCapitalize="none"
             label="Email address*"
             onChangeText={value => handleOnChangeText(value, 'email')}
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
 
           <TextInput
@@ -138,9 +140,10 @@ const Signin = ({navigation}) => {
             secureTextEntry={true}
             label="Password*"
             onChangeText={value => handleOnChangeText(value, 'password')}
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
         </View>
+        <Text style={styles.error}>{error ? <Text>{error}</Text> : null}</Text>
         <View style={styles.password}>
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgetPassword')}>
@@ -153,7 +156,6 @@ const Signin = ({navigation}) => {
             <Text style={styles.reset1}>Reset password?</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.error}>{error ? <Text>{error}</Text> : null}</Text>
 
         <View style={styles.button}>
           <TouchableOpacity>
@@ -166,7 +168,7 @@ const Signin = ({navigation}) => {
         <View style={styles.or}>
           <Text>
             ----------------------------------- OR
-            ------------------------------------
+            ---------------------------------
           </Text>
         </View>
         <View style={styles.containerIcon}>
@@ -231,14 +233,14 @@ const styles = StyleSheet.create({
 
     marginLeft: 20,
     margin: 15,
+    overflow: 'hidden',
+    borderRadius: 15,
   },
   email: {
     height: 47,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
-    borderRadius: 10,
-    // fontSize: 6,
     marginVertical: 20,
     padding: 10,
   },
@@ -247,17 +249,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
-    borderRadius: 10,
     padding: 10,
   },
   password: {
     width: '90%',
 
     marginLeft: 20,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   forgot: {
     textAlign: 'right',
+    marginTop: 5,
     fontSize: 14,
     fontFamily: 'Open Sans',
     fontWeight: '600',
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
   },
   or: {
     width: '90%',
-    marginLeft: 30,
+    marginLeft: 35,
     textAlign: 'center',
     fontSize: 16,
 
@@ -364,8 +366,8 @@ const styles = StyleSheet.create({
     height: 22,
   },
   error: {
-    textAlign: 'center',
-    justifyContent: 'center',
+    // textAlign: 'center',
+    // justifyContent: 'center',
     color: '#DBBE80',
 
     fontSize: 15,

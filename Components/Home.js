@@ -55,119 +55,121 @@ const DATA = [
 const Home = () => {
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Image source={moti} style={styles.moti} />
-        </TouchableOpacity>
-        <View style={styles.header1}>
+      <View style={{backgroundColor: '##E5E5E5'}}>
+        <View style={styles.header}>
           <TouchableOpacity>
-            <Image source={bell} style={styles.bell} />
+            <Image source={moti} style={styles.moti} />
           </TouchableOpacity>
-          <View>
+          <View style={styles.header1}>
             <TouchableOpacity>
-              <Image source={profile} style={styles.profile} />
+              <Image source={bell} style={styles.bell} />
             </TouchableOpacity>
+            <View>
+              <TouchableOpacity>
+                <Image source={profile} style={styles.profile} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-      <FlatList
-        data={DATA}
-        renderItem={({item}) => (
-          <View>
-            <View style={styles.bar}>
-              <View style={styles.bar1}>
-                <TouchableOpacity>
-                  <Image source={user} style={styles.user} />
-                </TouchableOpacity>
-                <View style={styles.text}>
+        <FlatList
+          data={DATA}
+          renderItem={({item}) => (
+            <View>
+              <View style={styles.bar}>
+                <View style={styles.bar1}>
                   <TouchableOpacity>
-                    <Text style={styles.text1}>Ronald Richards</Text>
+                    <Image source={user} style={styles.user} />
+                  </TouchableOpacity>
+                  <View style={styles.text}>
+                    <TouchableOpacity>
+                      <Text style={styles.text1}>Ronald Richards</Text>
 
-                    <Text style={styles.text2}>United States</Text>
+                      <Text style={styles.text2}>United States</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                <View style={styles.dot}>
+                  <TouchableOpacity>
+                    {/* <Image source={like} style={styles.like} /> */}
+                    <Icon
+                      name={'dots-three-vertical'}
+                      size={24}
+                      color="#BDBEC1"
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
-
-              <View style={styles.dot}>
+              <View style={styles.image}>
                 <TouchableOpacity>
-                  {/* <Image source={like} style={styles.like} /> */}
-                  <Icon
-                    name={'dots-three-vertical'}
-                    size={24}
-                    color="#BDBEC1"
+                  <Image
+                    resizeMode="stretch"
+                    source={body}
+                    style={styles.image1}
                   />
                 </TouchableOpacity>
               </View>
-            </View>
-            <View style={styles.image}>
-              <TouchableOpacity>
-                <Image
-                  resizeMode="stretch"
-                  source={body}
-                  style={styles.image1}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.content}>
-              <Text style={styles.content1}>
-                loreum ipsum hasd been the industry many stndard dummy text ever
-                since the 1500
-              </Text>
-              <View style={styles.icon}>
-                <View style={styles.icontext}>
-                  <TouchableOpacity>
-                    {/* <Image source={like} style={styles.like} /> */}
+              <View style={styles.content}>
+                <Text style={styles.content1}>
+                  loreum ipsum hasd been the industry many stndard dummy text
+                  ever since the 1500
+                </Text>
+                <View style={styles.icon}>
+                  <View style={styles.icontext}>
+                    <TouchableOpacity>
+                      {/* <Image source={like} style={styles.like} /> */}
 
-                    <Entypo
-                      name={'heart'}
-                      size={24}
-                      color="red"
-                      style={styles.like}
-                    />
-                  </TouchableOpacity>
+                      <Entypo
+                        name={'heart'}
+                        size={24}
+                        color="red"
+                        style={styles.like}
+                      />
+                    </TouchableOpacity>
 
-                  <View>
-                    <Text style={styles.liketext}>22k</Text>
+                    <View>
+                      <Text style={styles.liketext}>22k</Text>
+                    </View>
                   </View>
-                </View>
-                <View style={styles.icontext}>
-                  <TouchableOpacity>
-                    <Feather
-                      name={'message-circle'}
-                      size={24}
-                      color="#807C7D"
-                      style={styles.comment}
-                    />
-                  </TouchableOpacity>
-                  <View>
-                    <Text style={styles.commenttext}>543</Text>
+                  <View style={styles.icontext}>
+                    <TouchableOpacity>
+                      <Feather
+                        name={'message-circle'}
+                        size={24}
+                        color="#807C7D"
+                        style={styles.comment}
+                      />
+                    </TouchableOpacity>
+                    <View>
+                      <Text style={styles.commenttext}>543</Text>
+                    </View>
                   </View>
-                </View>
-                <View style={styles.icontext}>
-                  <TouchableOpacity>
-                    <AntDesign
-                      name={'sharealt'}
-                      size={24}
-                      color="#898788"
-                      style={styles.share}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.icontext}>
-                  <TouchableOpacity>
-                    <FontAwesome
-                      name={'bookmark'}
-                      size={24}
-                      color="#898788"
-                      style={styles.save}
-                    />
-                  </TouchableOpacity>
+                  <View style={styles.icontext}>
+                    <TouchableOpacity>
+                      <AntDesign
+                        name={'sharealt'}
+                        size={24}
+                        color="#898788"
+                        style={styles.share}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.icontext}>
+                    <TouchableOpacity>
+                      <FontAwesome
+                        name={'bookmark'}
+                        size={24}
+                        color="#898788"
+                        style={styles.save}
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        )}
-      />
+          )}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
   header: {
     marginLeft: 20,
     width: '90%',
-    marginTop: 20,
+    marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: 10,
@@ -241,6 +243,8 @@ const styles = StyleSheet.create({
   dot: {
     marginRight: 20,
     justifyContent: 'flex-end',
+    width: 15,
+    height: 30,
   },
   content: {
     width: '90%',

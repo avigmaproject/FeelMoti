@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import React, {useState} from 'react';
+import back from '../Assets/back.png';
 import google from '../Assets/google.png';
 import facebook from '../Assets/Face.png';
 import apple from '../Assets/apple.png';
@@ -61,7 +62,7 @@ const Signup = ({navigation}) => {
       return updateError('Invalid name!', setError);
     if (!isValidEmail(email)) return updateError('Invalid email!', setError);
     if (!password.trim() || password.length < 8)
-      return updateError('Password is less then 8 characters!', setError);
+      return updateError('Password must be atleast 8 chracter long!', setError);
     if (password !== confirmPassword)
       return updateError('Password does not match!', setError);
     return true;
@@ -114,8 +115,15 @@ const Signup = ({navigation}) => {
   console.log(form);
 
   return (
-    <ScrollView contentContainerStyle={{flex: 1}}>
+    <ScrollView
+      contentContainerStyle={{flex: 1}}
+      style={{backgroundColor: '#FFFFFF'}}>
       <View>
+        <View style={styles.back}>
+          <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+            <Image source={back} style={styles.back1} />
+          </TouchableOpacity>
+        </View>
         <View style={styles.heading}>
           <Text style={styles.text}>Sign Up</Text>
         </View>
@@ -129,7 +137,7 @@ const Signup = ({navigation}) => {
             style={styles.input}
             autoCapitalize="none"
             label="Full name"
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
           <TextInput
             value={email}
@@ -137,7 +145,7 @@ const Signup = ({navigation}) => {
             style={styles.input}
             autoCapitalize="none"
             label="Email address*"
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
           <TextInput
             value={password}
@@ -146,7 +154,7 @@ const Signup = ({navigation}) => {
             autoCapitalize="none"
             secureTextEntry={true}
             label="Password*"
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
           <TextInput
             value={confirmPassword}
@@ -155,7 +163,7 @@ const Signup = ({navigation}) => {
             autoCapitalize="none"
             secureTextEntry={true}
             label="Confirm Password*"
-            theme={{colors: {primary: '#9B9C9F'}}}
+            theme={{colors: {primary: '#9B9C9F'}, roundness: 10}}
           />
         </View>
         <Text style={styles.error}>{error ? <Text>{error}</Text> : null}</Text>
@@ -171,7 +179,7 @@ const Signup = ({navigation}) => {
         <View style={styles.or}>
           <Text>
             ----------------------------------- OR
-            ------------------------------------
+            ---------------------------------
           </Text>
         </View>
         <View style={styles.containerIcon}>
@@ -205,8 +213,12 @@ const Signup = ({navigation}) => {
 export default Signup;
 
 const styles = StyleSheet.create({
+  back: {
+    marginTop: 18,
+    marginLeft: 20,
+  },
   heading: {
-    marginTop: 12,
+    marginTop: 2,
     marginLeft: 20,
     width: '90%',
     height: 43,
@@ -237,21 +249,21 @@ const styles = StyleSheet.create({
     width: '90%',
 
     marginLeft: 20,
-    margin: 15,
+    margin: 4,
   },
   input: {
     height: 45,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EBEBEB',
-    borderRadius: 10,
+
     marginBottom: 0,
-    marginVertical: 5,
+    marginVertical: 13,
     padding: 10,
   },
 
   button: {
-    // marginTop: 0,
+    // marginTop: -5,
     width: '90%',
     height: 60,
     borderRadius: 10,
@@ -269,7 +281,7 @@ const styles = StyleSheet.create({
   },
   or: {
     width: '90%',
-    marginLeft: 30,
+    marginLeft: 35,
     textAlign: 'center',
     fontSize: 16,
     fontWeight: '400',
