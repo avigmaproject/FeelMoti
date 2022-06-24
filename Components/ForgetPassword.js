@@ -56,6 +56,9 @@ const ForgetPassword = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.navigate('Setting')}>
           <Text style={styles.home}>Seting</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Creator')}>
+          <Text style={styles.home}>Creator</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

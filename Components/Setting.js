@@ -21,7 +21,7 @@ import Star from 'react-native-vector-icons/EvilIcons';
 import User from 'react-native-vector-icons/Feather';
 import Lock from 'react-native-vector-icons/Feather';
 import Shield from 'react-native-vector-icons/Ionicons';
-const EditProfile = ({navigation}) => {
+const Setting = ({navigation}) => {
   return (
     <ScrollView
       style={{
@@ -174,13 +174,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     width: '90%',
     height: 32,
-    // backgroundColor: 'red',
   },
 
   text: {
     color: '#424242',
     fontSize: 24,
-    // backgroundColor: 'red',
     color: '#424242',
     fontFamily: 'Open Sans',
     fontWeight: '700',
@@ -208,11 +206,7 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 1,
     borderColor: '#00000',
-    // opacity: 0.05,
     marginLeft: 20,
-    // margin: 15,
-
-    // backgroundColor: 'red',
   },
   boxcontent: {
     padding: 15,
@@ -226,19 +220,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#424242',
     marginRight: 100,
-    // backgroundColor: 'red',
   },
   box1: {
-    // marginTop: 10,
     height: 55,
     width: '90%',
     borderWidth: 1,
     borderColor: '#00000',
-    // opacity: 0.05,
     marginLeft: 20,
-    // margin: 15,
-
-    // backgroundColor: 'red',
   },
   boxcontent1: {
     padding: 15,
@@ -254,16 +242,11 @@ const styles = StyleSheet.create({
     marginRight: 130,
   },
   box2: {
-    // marginTop: 10,
     height: 55,
     width: '90%',
     borderWidth: 1,
     borderColor: '#00000',
-    // opacity: 0.05,
     marginLeft: 20,
-    // margin: 15,
-
-    // backgroundColor: 'red',
   },
   boxcontent2: {
     padding: 15,
@@ -302,11 +285,8 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 1,
     borderColor: '#00000',
-    // opacity: 0.05,
-    marginLeft: 20,
-    // margin: 15,
 
-    // backgroundColor: 'red',
+    marginLeft: 20,
   },
   boxcontentB: {
     padding: 15,
@@ -386,4 +366,4 @@ const styles = StyleSheet.create({
     marginRight: 80,
   },
 });
-export default EditProfile;
+export default Setting;

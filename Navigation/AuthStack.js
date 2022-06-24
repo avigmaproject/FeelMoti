@@ -7,6 +7,7 @@ import ResetPassword from '../Components/ResetPassword';
 import EditProfile from '../Components/EditProfile';
 import Wallet from '../Components/Wallet';
 import Setting from '../Components/Setting';
+import Creator from '../Components/Creator';
 import * as React from 'react';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ export default function AuthStack() {
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="Wallet" component={Wallet} />
       <Stack.Screen name="Setting" component={Setting} />
+      <Stack.Screen name="Creator" component={Creator} />
     </Stack.Navigator>
   );
 }

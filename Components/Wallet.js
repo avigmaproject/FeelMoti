@@ -15,7 +15,7 @@ import wallet from '../Assets/wallet.png';
 import Credit from 'react-native-vector-icons/SimpleLineIcons';
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-paper';
-const ForgetPassword = ({navigation}) => {
+const Wallet = ({navigation}) => {
   return (
     <ScrollView
       contentContainerStyle={{flex: 1}}
@@ -194,4 +194,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgetPassword;
+export default Wallet;
